@@ -15,4 +15,13 @@ function validaEmail($email) {
   return true;
 }
 
+// Funzione per impostare la classe dell'alert
+function setClassAlert($esito) {
+  if ($esito == true) {
+    return "alert-success";
+  } else {
+    return "alert-danger";
+  }
+}
+
 ?>
