@@ -6,21 +6,28 @@
 <body>
   <?php
 
+  // Include il file functions.php
+  include "functions.php";
+
   // Controlla se il form è stato inviato
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Controlla che l'indirizzo email sia valido
-    $email = $_POST["email"];
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if (!validaEmail($_POST["email"])) {
       echo "<div class='alert alert-danger'>L'indirizzo email non è valido.</div>";
     } else {
-      echo "<div class='alert alert-success'>L'indirizzo email è valido.</div>";
+      // Inserisci i dati nel database
+      inserisciDati($_POST["nome"], $_POST["email"], $_POST["interessi"]);
+
+      // Mostra un messaggio di successo
+      echo "<div class='alert alert-success'>Iscrizione avvenuta con successo.</div>";
     }
   }
 
   ?>
 
   <form action="newsletter.php" method="post">
-    <input type="text" name="email" placeholder="Indirizzo email">
+    <input type="text" name="nome" placeholder="Nome">
+    <input type="email" name="email" placeholder="Indirizzo email">
     <input type="submit" value="Iscriviti">
   </form>
 </body>
