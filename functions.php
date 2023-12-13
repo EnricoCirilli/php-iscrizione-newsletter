@@ -1,27 +1,20 @@
-<?php
+<?php 
+function validate_email($email) {
+  return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+$class = 'alert-danger';
 
-// Funzione per controllare la validità di un indirizzo email
-function validaEmail($email) {
-  // Controlla che l'indirizzo email sia ben formattato
-  if (!preg_match("/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z]+$/", $email)) {
-    return false;
-  }
+if (validate_email($_POST['email'])) {
+  $class = 'alert-success';
+}
+if (validate_email($_POST['email'])) {
+  // Memorizza l'indirizzo email registrato durante la procedura di validazione
+  session_start();
+  $_SESSION['email'] = $_POST['email'];
 
-  // Controlla che l'indirizzo email contenga un punto ed una chiocciola
-  if (!strpos($email, "@") || !strpos($email, ".")) {
-    return false;
-  }
-
-  return true;
+  // Redirect alla pagina di ringraziamento
+  header('Location: thankyou.php');
 }
 
-// Funzione per impostare la classe dell'alert
-function setClassAlert($esito) {
-  if ($esito == true) {
-    return "alert-success";
-  } else {
-    return "alert-danger";
-  }
-}
 
 ?>
