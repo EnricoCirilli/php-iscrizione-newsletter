@@ -21,14 +21,29 @@ if (validate_email($email)) {
   } else {
     echo '<div class="alert alert-danger">L\'indirizzo email non è valido.</div>';
   }
+
+$class = 'alert-danger';
+
+if (validate_email($_POST['email'])) {
+  $class = 'alert-success';
 }
+if (validate_email($_POST['email'])) {
+  // Memorizza l'indirizzo email registrato durante la procedura di validazione
+  session_start();
+  $_SESSION['email'] = $_POST['email'];
+
+  // Redirect alla pagina di ringraziamento
+  header('Location: thankyou.php');
+}
+
+
 
 if (!validate_email($_POST['email'])) {
   // Visualizza l'indirizzo email errato nell'input
   $email = $_POST['email'];
 }
 
-
+  }
 
 
   ?>
